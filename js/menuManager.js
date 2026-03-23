@@ -1,6 +1,5 @@
 // GESTION DES MENUS PRINCIPAUX ET SOUS-MENUS
 
-{ id: 'holidays', text: '🎉 Jours Fériés', module: 'HolidaysModule' }
 function displayMainMenu() {
     const mainContent = document.getElementById('main-content');
     document.getElementById('sub-title').textContent = "Menu Principal - SGA";
@@ -34,6 +33,27 @@ function displayMainMenu() {
     
     mainContent.appendChild(menuContainer);
 }
+
+function displaySubMenu(title, options) {
+    const mainContent = document.getElementById('main-content');
+    document.getElementById('sub-title').textContent = title;
+    mainContent.innerHTML = '';
+    
+    const menuContainer = document.createElement('div');
+    menuContainer.className = 'menu-button-container';
+    
+    options.forEach(option => {
+        const btn = document.createElement('button');
+        btn.textContent = option.text;
+        btn.className = 'menu-button' + (option.className ? ' ' + option.className : '');
+        btn.onclick = option.handler;
+        menuContainer.appendChild(btn);
+    });
+    
+    mainContent.appendChild(menuContainer);
+}
+
+// ============ MENUS DES MODULES ============
 
 function displayAgentsManagementMenu() {
     displaySubMenu("GESTION DES AGENTS", [
@@ -171,24 +191,4 @@ function displayConfigMenu() {
         { text: "ℹ️ A propos", handler: () => showAbout() },
         { text: "↩️ Retour Menu Principal", handler: () => displayMainMenu(), className: "back-button" }
     ]);
-}
-// Dans MENU_ITEMS
-{ id: 'uniforms', text: '👕 Habillement', module: 'UniformsModule' }
-function displaySubMenu(title, options) {
-    const mainContent = document.getElementById('main-content');
-    document.getElementById('sub-title').textContent = title;
-    mainContent.innerHTML = '';
-    
-    const menuContainer = document.createElement('div');
-    menuContainer.className = 'menu-button-container';
-    
-    options.forEach(option => {
-        const btn = document.createElement('button');
-        btn.textContent = option.text;
-        btn.className = 'menu-button' + (option.className ? ' ' + option.className : '');
-        btn.onclick = option.handler;
-        menuContainer.appendChild(btn);
-    });
-    
-    mainContent.appendChild(menuContainer);
 }
